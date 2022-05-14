@@ -1,0 +1,48 @@
+CREATE DATABASE escuela;
+
+CREATE SCHEMA escuela;
+
+CREATE TABLE escuela.t_alumnos (
+	id_t_usuarios SERIAL NOT NULL PRIMARY KEY,
+	nombre varchar (80),
+	ap_paterno varchar(80),
+	ap_materno varchar(80),
+	activo boolean
+);
+
+INSERT INTO escuela.t_alumnos VALUES (default,'John','Dow','Down',true);
+
+
+CREATE TABLE escuela.t_materias (
+	id_t_materias SERIAL NOT NULL PRIMARY KEY,
+	nombre varchar(80),
+	activo boolean
+);
+
+INSERT INTO escuela.t_materias VALUES (default,'matematicas',true); 
+INSERT INTO escuela.t_materias VALUES (default,'programacion I',true);
+INSERT INTO escuela.t_materias VALUES (default,'ingenieria de sofware',true);
+
+
+CREATE TABLE escuela.t_calificaciones (
+	id_t_calificaciones SERIAL NOT NULL,
+	id_t_materias int NOT NULL,
+	id_t_usuarios int NOT NULL,
+	calificacion decimal (10,2),
+	fecha_registro date,
+	activo boolean,
+	primary key (id_t_calificaciones),
+	foreign key (id_t_materias) references escuela.t_materias (id_t_materias),
+	foreign key (id_t_usuarios) references escuela.t_alumnos (id_t_usuarios)
+); 
+
+CREATE TABLE escuela.usuarios(
+	id_usuario SERIAL NOT NULL,
+	usuario varchar(80) NOT NULL,
+	contrasenia varchar(80) NOT NULL,
+	rol varchar(80) NOT NULL,
+	fecha_registro date,
+	activo boolean
+);
+
+INSERT INTO escuela.usuarios VALUES (default,'luis.jimenez','$2a$12$npxP7gfz9SZ5ir51K7GaMOBEQn9fge2MByJ2rIkFM1uv5GfkNCOfm','Admin','2022/05/13',true);
