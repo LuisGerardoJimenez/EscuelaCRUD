@@ -11,15 +11,16 @@ export class AlumnosService {
 
     constructor(private http: HttpClient) {}
 
-    consultarAlumnos(usuario: string): Observable<any> {
-        console.log('detalleUsuario()');
-        return this.http.get<any>(endpoints.endpoint + `/alumnos/consultar`).pipe(
+    consultarAlumnos(): Observable<any> {
+        console.log('detalleAlumnos()');
+        console.log('token -> '+localStorage.getItem('token'));
+        return this.http.get<any>(endpoints.endpoint + `alumnos/consultar`).pipe(
           tap(
             (response) => {
               console.log(response);
             },
             (error) => {
-                console.log("error ->"+error);
+                console.log(error);
             }
           )
         );
