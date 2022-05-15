@@ -25,7 +25,7 @@ public class MateriaController {
 	
 	@PreAuthorize("@authorityServiceImpl.hasAccess('"+ConstantesGlobales.ROL_ADMIN+"')")
 	@GetMapping(path = "/consultar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> findInformesLaboratoriosMuestraByInforme() throws Exception {
+	public ResponseEntity<?> findMaterias() throws Exception {
 		MateriaDTO response = this.materiaNegocio.consultaMaterias();
 		if (response != null && response.getCode() != null 
 				&& response.getCode().equals(ConstantesGlobales.ID_EXITO)) {

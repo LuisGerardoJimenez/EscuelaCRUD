@@ -25,7 +25,7 @@ public class AlumnoController {
 	
 	@PreAuthorize("@authorityServiceImpl.hasAccess('"+ConstantesGlobales.ROL_ADMIN+"')")
 	@GetMapping(path = "/consultar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> findInformesLaboratoriosMuestraByInforme() throws Exception {
+	public ResponseEntity<?> findAlumnos() throws Exception {
 		AlumnoDTO response = this.alumnoNegocio.consultaAlumnos();
 		if (response != null && response.getCode() != null 
 				&& response.getCode().equals(ConstantesGlobales.ID_EXITO)) {
