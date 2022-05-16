@@ -26,6 +26,44 @@ public class CalificacionNegocioImpl implements ICalificacionNegocio{
 	
 	@Autowired
 	private ICalificacionesService calificacionesService;
+	
+	@Override
+	public CalificacionDTO consultaCalificacionPorId(Integer idCalificacion) {
+		try {
+			if (idCalificacion == null) {
+				return new CalificacionDTO("La idCalificacion es obligatoria.", 
+						"La idCalificacion es obligatoria.",
+						CalificacionNegocioImpl.class.toString(), 
+						ConstantesGlobales.ID_ERROR_PARAMETROS);
+			}
+			Calificaciones calificacion = this.calificacionesService.consultaCalificacionPorId(idCalificacion);
+			if(calificacion != null) {
+				CalificacionDTO calificacionDTO = new CalificacionDTO();
+				calificacionDTO.setIdCalificacion(calificacion.getId());
+				calificacionDTO.setIdMateria(calificacion.getMateria().getId());
+				calificacionDTO.setCalificacion(calificacion.getCalificacion());
+				calificacionDTO.setFechaRegistro(Formateador.formatoFecha(calificacion.getFechaRegistro()));
+				calificacionDTO.setCode(ConstantesGlobales.ID_EXITO);
+				return calificacionDTO;
+			} else{
+				return new CalificacionDTO("No se encontraron resultados",
+						null,
+						CalificacionNegocioImpl.class.toString(), 
+						ConstantesGlobales.ID_NO_SE_ENCONTRARON_RESULTADOS);
+			}
+		} catch (NegocioException e) {
+			return new CalificacionDTO(e.getUserMessage(),
+					e.getInternalMessage(),
+					CalificacionNegocioImpl.class.toString(), 
+					e.getCode());
+		} catch (Exception e) {
+			log.error("Ocurri\u00F3 un error general ", e);
+			return new CalificacionDTO("Ocurri\u00F3 un error general.",
+					"Ocurri\u00F3 un error general al consultar Calificacion por Id",
+					CalificacionNegocioImpl.class.toString(), 
+					ConstantesGlobales.ID_ERROR_GENERAL_CAPA_NEGOCIO);
+		}
+	}
 
 	@Override
 	public CalificacionDTO consultaCalificacionesPorIdAlumno(Integer idAlumno) {
@@ -163,24 +201,20 @@ public class CalificacionNegocioImpl implements ICalificacionNegocio{
 	}
 
 	@Override
-	public CalificacionDTO eliminaCalificacion(CalificacionDTO calificacionDTO) {
+	public CalificacionDTO eliminaCalificacion(Integer idCalificacionDTO) {
 		try {
-			if (calificacionDTO == null) {
-				return new CalificacionDTO("El DTO esta vacio.", "El DTO esta vacio.",
-						CalificacionNegocioImpl.class.toString(), 
-						ConstantesGlobales.ID_ERROR_PARAMETROS);
-			}
 			
-			if (calificacionDTO.getIdCalificacion() == null) {
+			if (idCalificacionDTO == null) {
 				return new CalificacionDTO("El IdCalificacion es obligatorio", "El IdCalificacion es obligatorio",
 						CalificacionNegocioImpl.class.toString(), 
 						ConstantesGlobales.ID_ERROR_DE_NEGOCIO);
 			}
 			
 			Calificaciones calificacionDB = this.calificacionesService.
-					consultaCalificacionPorId(calificacionDTO.getIdCalificacion());
+					consultaCalificacionPorId(idCalificacionDTO);
 			if(calificacionDB != null) {
 				this.calificacionesService.eliminaCalificacion(calificacionDB);
+				CalificacionDTO calificacionDTO = new CalificacionDTO();
 				calificacionDTO.setSuccess("OK");
 				calificacionDTO.setMsg("Calificaci\u00F3n eliminada");
 				calificacionDTO.setCode(ConstantesGlobales.ID_EXITO);

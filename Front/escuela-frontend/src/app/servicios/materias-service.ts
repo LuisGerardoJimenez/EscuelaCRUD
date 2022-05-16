@@ -7,12 +7,12 @@ import { endpoints } from '../../environments/environment';
 @Injectable({
     providedIn: 'root',
   })
-export class AlumnosService {
+export class MateriasService {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient){}
 
-    consultarAlumnos(): Observable<any> {
-        return this.http.get<any>(endpoints.endpoint + `alumnos/consultar`).pipe(
+    consultarMaterias(): Observable<any> {
+        return this.http.get<any>(endpoints.endpoint + `materias/consultar`).pipe(
           tap(
             (response) => {
               console.log(response);

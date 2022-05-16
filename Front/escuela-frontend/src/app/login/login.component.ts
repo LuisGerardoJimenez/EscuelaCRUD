@@ -49,10 +49,9 @@ export class LoginComponent implements OnInit {
         if(error.status===401){
           console.log('Usuario o contraseña incorrectos');
           this.router.navigate(['/login']);
-  }
+        }
       }
     );
-    //this.router.navigate(['/alumnos']);
   }
 
 }

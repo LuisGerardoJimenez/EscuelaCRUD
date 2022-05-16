@@ -37,4 +37,10 @@ export class AlumnosComponent implements OnInit {
       );
   }
 
+  mostrarCalificaciones(alumno:Alumno){
+    localStorage.setItem("idAlumno", alumno.idAlumno.toString());
+    localStorage.setItem("alumnoNombre", alumno.nombreCompleto);
+    this.router.navigate(['/calificaciones']);
+  }
+
 }

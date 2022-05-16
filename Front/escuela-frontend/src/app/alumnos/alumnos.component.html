@@ -14,12 +14,15 @@
                     <tr *ngFor="let alumno of listAlumnos">
                         <td>{{alumno.nombreCompleto}}</td>
                         <td>
-                            <button id="id_mostrar_edicion" class="btn btn-primary btn-xs" >
+                            <!--<button id="id_mostrar_edicion" class="btn btn-primary btn-xs" >
                                 <span class="material-icons">mode_edit</span>
                             </button>
                             <span style="padding: 3px;"></span>
                             <button id="id_eliminar_usuario" class="btn btn-primary btn-xs" >
                                 <span class="material-icons">delete</span>
+                            </button>-->
+                            <button id="id_ver-calificaciones" class="btn btn-primary btn-xs" (click)="mostrarCalificaciones(alumno)">
+                                <span class="material-icons">bar_chart</span>
                             </button>
                         </td>
                     </tr>

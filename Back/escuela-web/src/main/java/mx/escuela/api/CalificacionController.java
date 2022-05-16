@@ -29,6 +29,18 @@ public class CalificacionController {
 	private ICalificacionNegocio calificacionNegocio;
 	
 	@PreAuthorize("@authorityServiceImpl.hasAccess('"+ConstantesGlobales.ROL_ADMIN+"')")
+	@GetMapping(path = "/consulta", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> findCalificacionById(
+			@RequestParam (value = "calificacion", required = true) Integer idCalificacion) throws Exception {
+		CalificacionDTO response = this.calificacionNegocio.consultaCalificacionPorId(idCalificacion);
+		if (response != null && response.getCode() != null 
+				&& response.getCode().equals(ConstantesGlobales.ID_EXITO)) {
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+		return new ResponseEntity<Object>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@PreAuthorize("@authorityServiceImpl.hasAccess('"+ConstantesGlobales.ROL_ADMIN+"')")
 	@GetMapping(path = "/consultar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> findCalificacionesByIdAlumno(
 			@RequestParam (value = "alumno", required = true) Integer idAlumno) throws Exception {
@@ -64,8 +76,9 @@ public class CalificacionController {
 	
 	@PreAuthorize("@authorityServiceImpl.hasAccess('"+ConstantesGlobales.ROL_ADMIN+"')")
 	@DeleteMapping(path = "/eliminar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> eliminaInformeLaboratorio(@RequestBody CalificacionDTO calificacionDTO) throws Exception {
-		CalificacionDTO response = this.calificacionNegocio.eliminaCalificacion(calificacionDTO);
+	public ResponseEntity<?> eliminaInformeLaboratorio(
+			@RequestParam (value = "calificacion", required = true) Integer idCalificacion) throws Exception {
+		CalificacionDTO response = this.calificacionNegocio.eliminaCalificacion(idCalificacion);
 		if (response != null && response.getCode() != null 
 				&& response.getCode().equals(ConstantesGlobales.ID_EXITO)) {
 			return new ResponseEntity<>(response, HttpStatus.OK);

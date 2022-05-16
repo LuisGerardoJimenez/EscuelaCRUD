@@ -1,0 +1,48 @@
+<h1 class="text-center">REGISTRO CALIFICACIÓN</h1>
+<h2 class="text-center">Alumno: {{nombreAlumno}}</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+            <form [formGroup]="calificacionForm" (ngSubmit)="registraCalificacion()">
+                <!--<div class="form-group">
+                    <label for="username">Usuario</label>
+                    <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
+                    <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                        <div *ngIf="f['username'].errors['required']">El usuario es requerido</div>
+                    </div>
+                </div>-->
+                <div class="form-group " >
+                    <label>Materia<span class="control-label">*</span>:</label>
+                    <select id="id_Materia" class="form-control" size="1" formControlName="idMateria" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['idMateria'].errors }">
+                      <option value="" [selected]="!f['idMateria'].value">Selecciona una opci&oacute;n...</option>
+                      <option *ngFor="let materia of listMaterias" [value]="materia.idMateria">
+                        {{ materia.materia }}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted && f['idMateria'].errors" class="invalid-feedback">
+                      <small *ngIf="f['idMateria'].errors['required']">Este campo es obligatorio</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="calificacion">Calificación</label>
+                    <input type="number" ng-model="myDecimal | number : 2" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" formControlName="calificacion" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['calificacion'].errors }" />
+                    <div *ngIf="submitted && f['calificacion'].errors" class="invalid-feedback">
+                        <div *ngIf="f['calificacion'].errors['required']">La calificacion es requerida</div>
+                        <div *ngIf="f['calificacion'].errors['maxLength']">La calificacion es de maximo 5 caracteres contando el punto</div>
+                        <div *ngIf="f['calificacion'].errors['pattern']">El formato de la calificacion es invalido</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="text-right">
+                        <button id="id_regresar" class="btn btn-outline-secondary btn-lg mr-2" (click)="clickRegresar()">
+                            Regresar
+                        </button> 
+                        <button class="btn btn-success btn-lg mr-2">
+                            Registrar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
