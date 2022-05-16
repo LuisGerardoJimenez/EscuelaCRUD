@@ -1,0 +1,57 @@
+<h1 class="text-center">CALIFICACIONES</h1>
+<h2 class="text-center">Alumno: {{nombreAlumno}}</h2>
+
+<h4 class="text-center">Promedio: {{promedio}}</h4>
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-primary" role="alert" *ngIf="mostrarMensaje">
+            <h4 class="text-center"> {{msg}} </h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead >
+                    <tr>
+                        <th scope="col">Alumno</th>
+                        <th scope="col">Materia</th>
+                        <th scope="col">Calificacion</th>
+                        <th scope="col">Fecha de registro</th>
+                        <th scope="col">Acciones</th>
+                      </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let calificacion of listCalificaciones">
+                        <td>{{calificacion.nombre}} {{calificacion.apellido}}</td>
+                        <td>{{calificacion.materia}}</td>
+                        <td>{{calificacion.calificacion}}</td>
+                        <td>{{calificacion.fechaRegistro}}</td>
+                        <td>
+                            <button id="id_mostrar_edicion" class="btn btn-primary btn-xs" (click)="irEditarCalificacion(calificacion)">
+                                <span class="material-icons">mode_edit</span>
+                            </button>
+                            <span style="padding: 3px;"></span>
+                            <button id="id_eliminar_usuario" class="btn btn-primary btn-xs" (click)="eliminaCalificaciones(calificacion)">
+                                <span class="material-icons">delete</span>
+                            </button>
+                            <!-- (click)="mostrarCalificaciones(alumno)" -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-right">
+                <button id="id_regresar" class="btn btn-outline-secondary btn-lg mr-2" (click)="clickRegresar()">
+                    Regresar
+                </button> 
+
+                <button id="id_registrar" class="btn btn-success btn-lg mr-2" (click)="irRegistrarCalificacion()">
+                    Registrar
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
